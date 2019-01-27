@@ -6,10 +6,21 @@
 GET http://localhost:3000/
 Accept: application/json
 
-### 2. render JSON from an endpoint
+### 2a. parse path params and emit JSON
 
-GET http://localhost:3000/api/example
+GET http://localhost:3000/api/hello/Abe/Weissman
 Accept: application/json
+
+### 2c. parse JSON request body
+
+POST http://localhost:3000/api/hello
+Accept: application/json
+Content-Type: application/json
+
+{
+  "first_name": "Midge",
+  "last_name": "Maisel"
+}
 
 ### 3. struct -> JSON repsonse
 

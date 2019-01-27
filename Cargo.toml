@@ -1,0 +1,11 @@
+[package]
+name = "nickel-web"
+version = "0.1.0"
+authors = ["Adam Keys <adam@therealadam.com>"]
+edition = "2018"
+
+[dependencies]
+nickel = "*"
+serde = "*"
+serde_derive = "*"
+serde_json = "*"
