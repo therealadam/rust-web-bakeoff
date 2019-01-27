@@ -1,0 +1,22 @@
+# Seven things an HTTP library/router should do in 2019
+# -----------------------------------------------------
+
+### 1. A simple "Hello World" sort of endpoint
+
+GET http://localhost:3000/
+Accept: application/json
+
+### 2. render JSON from an endpoint
+
+GET http://localhost:3000/api/example
+Accept: application/json
+
+### 3. struct -> JSON repsonse
+
+### 4. JSON -> struct & update API
+
+### 5. router decomposition; e.g. /api/ and /pages served by separate functions/impls
+
+### 6. use a (global) state thing
+
+### 7. middleware
