@@ -5,6 +5,8 @@ extern crate serde_json;
 
 use nickel::status::StatusCode;
 use nickel::{ Nickel, JsonBody, HttpRouter, MediaType };
+use std::sync::atomic::{ AtomicUsize, Ordering::Relaxed };
+use std::sync::Arc;
 
 #[derive(Serialize, Deserialize)]
 struct Person {
@@ -14,6 +16,18 @@ struct Person {
 
 fn main() {
     let mut server = Nickel::new();
+
+    let visits = AtomicUsize::new(0);
+    let shared_visits = Arc::new(visits);
+
+    let visits_clone = shared_visits.clone();
+    server.get("/counts/a", middleware! {
+      format!("{}", visits_clone.fetch_add(1, Relaxed))
+    });
+
+    server.get("/counts/b", middleware! {
+      format!("{}", shared_visits.fetch_add(1, Relaxed))
+    });
 
     server.post("/api/hello", middleware! { |request, response|
       let person = try_with!(response, {

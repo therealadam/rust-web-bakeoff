@@ -1,5 +1,5 @@
 [package]
-name = "nickel-web"
+name = "rust-web-bakeoff"
 version = "0.1.0"
 authors = ["Adam Keys <adam@therealadam.com>"]
 edition = "2018"

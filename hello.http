@@ -22,9 +22,18 @@ Content-Type: application/json
   "last_name": "Maisel"
 }
 
-### 3. struct -> JSON repsonse
 
-### 4. JSON -> struct & update API
+### 4a. JSON -> struct & update API
+# Successive requests should update a shared counter
+
+GET http://localhost:3000/counts/a
+Accept: application/json
+
+### 4b. JSON -> struct & update API
+# Successive requests should update a shared counter
+
+GET http://localhost:3000/counts/b
+Accept: application/json
 
 ### 5. router decomposition; e.g. /api/ and /pages served by separate functions/impls
 
