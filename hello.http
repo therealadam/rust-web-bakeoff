@@ -37,6 +37,11 @@ Accept: application/json
 
 ### 5. router decomposition; e.g. /api/ and /pages served by separate functions/impls
 
+GET http://localhost:3000/count
+Accept: application/json
+
+###
+
 ### 6. use a (global) state thing
 
 ### 7. middleware

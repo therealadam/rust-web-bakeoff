@@ -14,6 +14,24 @@ struct Person {
     last_name: String,
 }
 
+#[derive(Serialize, Deserialize)]
+struct Counter {
+//    visits: AtomicUsize,
+}
+
+impl Counter {
+    // TODO encapsulate some state here? is that a thing?
+    pub fn make_router() -> nickel::Router {
+        let mut router = Nickel::router();
+
+        router.get("/count", middleware! {
+            "Hi from counter"
+        });
+
+        router
+    }
+}
+
 fn main() {
     let mut server = Nickel::new();
 
@@ -58,6 +76,8 @@ fn main() {
     server.get("/hello", middleware! { |_req, _res|
         "It's not pronounced doink!"
     });
+
+    server.utilize(Counter::make_router());
 
     server.listen("0.0.0.0:3000").unwrap();
 }
