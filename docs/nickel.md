@@ -21,3 +21,16 @@ All middleware implement `invoke` from the `Middleware` trait. Adding a trait on
 But maybe its different if you're returning a router?
 
 Also, feels like I'm making a minor hop forward in learning Rust. I'm a) reading types a little bit now (like they say one does in Haskell) and b) looking for truth and examples in sources instead of just in docs and reference material.
+
+## On passing connection-like things
+
+So, I’m trying to write a Rust web thingy with Nickel. I want to be able to pass a DB connection-like thing between various middlewares/routers. Nickel.rs is a little thin on examples, so I’m not entirely sure how to do that.
+
+By comparison, crates.io does it like so:
+
+- every "controller" (close to a router) is passed a custom-to-crates request object
+- the database connection is an accessor on that request object
+- the database connection management module defines and adds a trait on that custom request object
+- that trait looks at the app object on the request to attempt to pull a connection out of the global DB pool
+
+So with crates, you don't even need to worry about shuffling a value through the type system, so much.
