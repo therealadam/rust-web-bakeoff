@@ -15,25 +15,44 @@ struct Person {
 }
 
 #[derive(Serialize, Deserialize)]
-struct Counter {
-//    visits: AtomicUsize,
+struct Count {
+    n: usize,
 }
 
-impl Counter {
-    // TODO encapsulate some state here? is that a thing?
-    pub fn make_router() -> nickel::Router {
-        let mut router = Nickel::router();
+fn counter_router() -> nickel::Router<ServerData> {
+    let mut router = Nickel::router();
 
-        router.get("/count", middleware! {
-            "Hi from counter"
-        });
+    router.get("/api/count", middleware! { |_req, res| <ServerData>
+        res.data().incr_count();
 
-        router
+        let count = Count { n: res.data().get_count() };
+
+        serde_json::to_value(count).map_err(|e| (StatusCode::InternalServerError, e))
+    });
+
+    router
+}
+
+struct ServerData {
+    count: AtomicUsize,
+}
+
+impl ServerData {
+    fn get_count(&self) -> usize {
+        self.count.load(Relaxed)
+    }
+
+    fn incr_count(&self) -> usize {
+        self.count.fetch_add(1, Relaxed)
     }
 }
 
 fn main() {
-    let mut server = Nickel::new();
+    let server_data = ServerData {
+        count: AtomicUsize::new(0)
+    };
+    let mut server = Nickel::with_data(server_data);
+    server.utilize(counter_router());
 
     let visits = AtomicUsize::new(0);
     let shared_visits = Arc::new(visits);
@@ -76,8 +95,6 @@ fn main() {
     server.get("/hello", middleware! { |_req, _res|
         "It's not pronounced doink!"
     });
-
-    server.utilize(Counter::make_router());
 
     server.listen("0.0.0.0:3000").unwrap();
 }

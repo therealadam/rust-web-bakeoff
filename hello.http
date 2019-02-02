@@ -44,4 +44,7 @@ Accept: application/json
 
 ### 6. use a (global) state thing
 
+GET http://localhost:3000/api/count
+Accept: application/json
+
 ### 7. middleware

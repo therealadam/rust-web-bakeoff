@@ -34,3 +34,9 @@ By comparison, crates.io does it like so:
 - that trait looks at the app object on the request to attempt to pull a connection out of the global DB pool
 
 So with crates, you don't even need to worry about shuffling a value through the type system, so much.
+
+## On encapsulation, middlewares, and routers
+
+You can slightly encapsulate a type in a middleware like [this example](https://github.com/nickel-org/nickel.rs/blob/master/examples/integration_testing.rs#L90-L111). Mostly, you're stuck with passing a big struct of application state/configuration to `Nickel::with_data` and pulling it out from each router or middleware.
+
+Maybe this isn't as big a deal with Rust as it would be in Ruby! For example, Diesel models always take a connection parameter, so every controller wouldn't necessarily go tinkering with some other bit of state.
