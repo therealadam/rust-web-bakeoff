@@ -5,7 +5,10 @@ authors = ["Adam Keys <adam@therealadam.com>"]
 edition = "2018"
 
 [dependencies]
-nickel = "*"
 serde = "*"
 serde_derive = "*"
 serde_json = "*"
+
+nickel = "*"
+
+actix-web = "0.7"

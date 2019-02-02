@@ -5,8 +5,8 @@ Wherein our hero wants to know, is Rust web enough for _me_?
 The contestants:
 
 - Nickel
+- Actix
 - Gotham
-- (Actix, maybe?)
 
 ## What I expect of a web library/framework in 2019
 
