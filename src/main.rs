@@ -1,3 +1,3 @@
 fn main() {
-    println!("Try nickel, or others, coming soon!");
+    println!("Try nickel, actix, or others, coming soon!");
 }
